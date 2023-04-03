@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+    <head>
+        <title>RAMMA</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/Estilos.css" rel="stylesheet" type="text/css"/>
+        <script src="javascript/java.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> 
+        <link href="Index.html" >
+    </head>
+    
+    <header>
+        
+        <input type="checkbox" name="" id="toggler">
+        <label for="toggler" class="fas fa-bars"></label>
+        
+        <a href="#" class="logo">E-TECH-ZONE<span></span></a>
+        
+        <nav class="navbar">
+            <a href="index.html">COMPUTADORAS</a>
+            <a href="Catalogo.html">COMPONENTES</a>
+            <a href="Procesadores.html">PROCESADORES</a>
+            <a href="Perifericos.html">PERIFERICOS</a>
+        </nav>
+        
+        <div class="icons">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="/Carrito.html" class="fas fa-shopping-cart"></a>
+            <a href="#" class="fas fa-user"></a>
+        </div>
+    </header>
+    
+
+
+
+
+<!---Catalogo-->
+<br><br><br><br>
+<section class="catalogo" id="catalogo">
+    
+    <h1 class="heading"> Nuestros <span>Productos</span></h1>
+    
+    <div class="box-container">
+        
+        <div class="box">
+            <div class="imagen">
+                <img src="Imagenes/Perifericos/1.jpg" alt="" onclick="window.location.href='Perifericos/Periferico1.html'">
+                <div class="icons">
+                    <a href="#" class="fas fa-heart"></a>
+                    <button class="cart-btn" onclick="addToCart('HEADSET UNNO OVALA BLUETOOTH 5.0 - ROJO - HS7408RD', '38.000')">Añadir al carrito</button>
+                    <a href="#" class="fas fa-share"></a>
+                </div>
+            </div>
+            <div class="content">
+                <h3>HEADSET UNNO OVALA BLUETOOTH 5.0 - ROJO - HS7408RD
+</h3>
+                <div class="price">₡38.000</div>
+            </div>
+        </div>
+        
+        <div class="box">
+            <div class="imagen">
+                <img src="Imagenes/Perifericos/2.jpg" alt="" onclick="window.location.href='Perifericos/Periferico2.html'">
+                <div class="icons">
+                    <a href="#" class="fas fa-heart"></a>
+                    <button class="cart-btn" onclick="addToCart('IMEXX - MOUSE WIRELESS - NEGRO', '19.000')">Añadir al carrito</button>
+                    <a href="#" class="fas fa-share"></a>
+                </div>
+            </div>
+            <div class="content">
+                <h3>IMEXX - MOUSE WIRELESS - NEGRO
+</h3>
+                <div class="price">₡19.000 </div>
+            </div>
+        </div>
+        
+        <div class="box">
+            <div class="imagen">
+                <img src="Imagenes/Perifericos/3.jpg" alt="" onclick="window.location.href='Perifericos/Periferico3.html'">
+                <div class="icons">
+                    <a href="#" class="fas fa-heart"></a>
+                    <<button class="cart-btn" onclick="addToCart('REDRAGON K552RGB-BA', '7.500')">Añadir al carrito</button>
+                    <a href="#" class="fas fa-share"></a>
+                </div>
+            </div>
+            <div class="content">
+                <h3>REDRAGON K552RGB-BA
+</h3>
+                <div class="price">₡7.500 </div>
+            </div>
+        </div>
+        
+        <div class="box">
+            <div class="imagen">
+                <img src="Imagenes/Perifericos/4.jpg" alt="" onclick="window.location.href='Perifericos/Periferico4.html'">
+                <div class="icons">
+                    <a href="#" class="fas fa-heart"></a>
+                    <button class="cart-btn" onclick="addToCart('REDRAGON K556 DEVARAJAS RGB', '35.000')">Añadir al carrito</button>
+                    <a href="#" class="fas fa-share"></a>
+                </div>
+            </div>
+            <div class="content">
+                <h3>REDRAGON K556 DEVARAJAS RGB
+</h3>
+                <div class="price">₡35.000 </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<script>
+    function addToCart(producto, precio) {
+        // Cargar el contenido de carrito.html
+        fetch('carrito.html')
+            .then(response => response.text())
+            .then(data => {
+                // Crear un objeto DOM para el contenido de carrito.html
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(data, 'text/html');
+                
+                // Obtener la tabla del carrito en carrito.html
+                var cartTable = doc.getElementById("cart-table").getElementsByTagName('tbody')[0];
+                
+                // Crear una nueva fila para el producto
+                var newRow = cartTable.insertRow();
+                
+                // Crear las celdas para el nombre, precio y botón de eliminar del producto
+                var productoCell = newRow.insertCell(0);
+                var precioCell = newRow.insertCell(1);
+                var eliminarCell = newRow.insertCell(2);
+                
+                // Agregar la información del producto y el botón de eliminar a las celdas
+                productoCell.innerHTML = producto;
+                precioCell.innerHTML = precio;
+                eliminarCell.innerHTML = '<button onclick="eliminarProducto(this)">Eliminar</button>';
+                
+                // Actualizar el total del carrito
+                var totalCell = doc.getElementsByClassName("cart-total")[0];
+                var total = parseFloat(totalCell.innerHTML.split(": ")[1]);
+                total += parseFloat(precio);
+                totalCell.innerHTML = "Total: " + total.toFixed(2);
+                
+                // Mostrar el contenido actualizado de carrito.html
+                document.body.innerHTML = doc.body.innerHTML;
+            });
+    }
+    
+    function eliminarProducto(row) {
+        // Obtener la fila que contiene el botón de eliminar
+        var productRow = row.parentNode.parentNode;
+        
+        // Obtener el valor del producto eliminado
+        var precio = productRow.getElementsByTagName('td')[1].innerHTML;
+        
+        // Eliminar la fila del producto
+        productRow.parentNode.removeChild(productRow);
+        
+        // Actualizar el total del carrito
+        var totalCell = document.getElementsByClassName("cart-total")[0];
+        var total = parseFloat(totalCell.innerHTML.split(": ")[1]);
+        total -= parseFloat(precio);
+        totalCell.innerHTML = "Total: " + total.toFixed(2);
+    }
+</script>
+    
+    <section class="footer">
+    
+    <div class="box-container">
+        
+        <div class="box">
+            <h3>Quick links</h3>
+            <a href="#">Inicio</a>
+            <a href="#">Catalogo</a>
+            <a href="#">Contacto</a>
+        </div>
+        
+        <div class="box">
+            <h3>Extra links</h3>
+            <a href="#">Mi cuenta</a>
+            <a href="#">Mi orden</a>
+            <a href="#">Mis favoritos</a>
+        </div>
+        
+        <div class="box">
+            <h3>Ubicaciones</h3>
+            <a href="#">San José</a>
+            <a href="#">Alajuela</a>
+            <a href="#">Heredia</a>
+            <a href="#">Cartago</a>
+        </div>
+        
+        <div class="box">
+            <h3>Contacto</h3>
+            <a href="#">+506 8888 9999</a>
+            <a href="#">example@gmail.com</a>
+            <a href="#">San José, Costa Rica</a>
+            <img src="Imagenes/metodo pago.jpg" alt="" width="50%" height="35%"/>
+        </div>
+        
+    </div>
+    
+    <div class="credit"> created by <span> V </span> | All rights reserved</div>
+</section>
+
+</html>

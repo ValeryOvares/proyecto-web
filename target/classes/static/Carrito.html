@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Carrito de Compras</title>
+	<link rel="stylesheet" type="text/css" href="estilos.css">
+</head>
+<body>
+	<h2>Carrito de compras</h2>
+
+<table id="cart-table">
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Precio</th>
+      <th>Eliminar</th>
+      <th></th>
+    </tr>
+    <tr>
+      <td colspan="3"></td>
+      <td><button onclick="regresar()">Regresar</button></td>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="1"></td>
+      <td class="cart-total">Total: 0</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tfoot>
+</table>
+
+
+
+
+
+<script>
+function regresar() {
+  // Obtener la tabla del carrito
+  var cartTable = document.getElementById("cart-table");
+
+  // Guardar los datos de la tabla en el LocalStorage
+  localStorage.setItem("cartTable", cartTable.outerHTML);
+
+  // Redirigir a la página principal
+  window.location.href = "index.html";
+}
+
+function cargarTabla() {
+  // Obtener los datos de la tabla guardados en el LocalStorage
+  var cartTableHTML = localStorage.getItem("cartTable");
+
+  // Si hay datos guardados, cargarlos en la tabla
+  if (cartTableHTML) {
+    var cartTable = document.getElementById("cart-table");
+    cartTable.outerHTML = cartTableHTML;
+  }
+}
+
+cargarTabla();
+
+</script>
+</body>
+<script src="java.js"></script>
+</html>

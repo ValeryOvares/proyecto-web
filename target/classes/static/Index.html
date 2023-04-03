@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+    <head>
+        <title>RAMMA</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/Estilos.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link href="Catalogo.html" >
+    </head>
+    
+    <header>
+        
+        <input type="checkbox" name="" id="toggler">
+        <label for="toggler" class="fas fa-bars"></label>
+        
+        <a href="#" class="logo">E-TECH-ZONE</a>
+        
+        <nav class="navbar">
+            <a href="index.html">COMPUTADORAS</a>
+            <a href="Catalogo.html">COMPONENTES</a>
+            <a href="Procesadores.html">PROCESADORES</a>
+            <a href="Perifericos.html">PERIFERICOS</a>
+        </nav>
+        
+        <div class="icons">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="Carrito.html" class="fas fa-shopping-cart"></a>
+            <a href="#" class="fas fa-user"></a>
+        </div>
+    </header>
+    
+<!--Inicio -->
+
+<!--<section  class="inicio" id="inicio">
+    
+    <div class="content">
+        
+        <h3>Perfumería</h3>
+        <span>Cada perfume es una historia, encuentra la tuya.</span>
+        <a href="Catalogo.html" class="btn">Comprar</a>
+    </div>
+</section>-->
+
+<!---Catalogo-->
+<br><br><br><br><br>
+<section class="catalogo" id="catalogo">
+    
+    <h1 class="heading"> Computadoras</h1>
+    
+    <div class="box-container">
+        
+        <div class="box">
+            <div class="imagen">
+                <img src="Imagenes/Laptop/1.jpg" alt="" onclick="window.location.href='Laptop/Laptop1.html'">
+
+                <div class="icons">
+                    <a href="#" class="fas fa-heart"></a>
+                    <button class="cart-btn" onclick="addToCart('ACER ASPIRE 5 - I3 10110U - 12 GB RAM', '37.315')">Añadir al carrito</button>
+                    <a href="#" class="fas fa-share"></a>
+                </div>
+            </div>
+            <div class="content">
+                <h3>ACER ASPIRE 5 - I3 10110U - 12 GB RAM</h3>
+                <div class="price">₡37.315 <span>₡43.900</span></div>
+            </div>
+        </div>
+        
+        
+        <div class="box">
+            <div class="imagen">
+                <img src="Imagenes/Laptop/2.jpg" alt="" onclick="window.location.href='Laptop/Laptop2.html'">
+                <div class="icons">
+                    <a href="#" class="fas fa-heart"></a>
+                    <button class="cart-btn" onclick="addToCart('HP 15-DY2791WM - I3 1115G4 - 8 GB RAM', '24.600')">Añadir al carrito</button>
+                    <a href="#" class="fas fa-share"></a>
+                </div>
+            </div>
+            <div class="content">
+                <h3>HP 15-DY2791WM - I3 1115G4 - 8 GB RAM</h3>
+                <div class="price">₡20.910 <span>₡24.600</span> </div>
+            </div>
+        </div>
+        
+        <div class="box">
+            <div class="imagen">
+                <img src="Imagenes/Laptop/3.jpg" alt="" onclick="window.location.href='Laptop/Laptop3.html'">
+                <div class="icons">
+                    <a href="#" class="fas fa-heart"></a>
+                    <button class="cart-btn" onclick="addToCart('LENOVO IDEAPAD 3 14IGL05 - CELERON N4020 - 4 GB - SSD', '12.665')">Añadir al carrito</button>
+                    <a href="#" class="fas fa-share"></a>
+                </div>
+            </div>
+            <div class="content">
+                <h3>LENOVO IDEAPAD 3 14IGL05 - CELERON N4020 - 4 GB - SSD
+</h3>
+                <div class="price">₡12.665 <span>₡14.900</span></div>
+            </div>
+        </div>
+        
+        <div class="box">
+            <div class="imagen">
+                <img src="Imagenes/Laptop/4.jpg" alt="" onclick="window.location.href='Laptop/Laptop4.html'">
+                <div class="icons">
+                    <a href="#" class="fas fa-heart"></a>
+                    <button class="cart-btn" onclick="addToCart('TOSHIBA DYNABOOK SATELLITE PRO C40-J - I3-1115G4 - 8 GB', '25.585')">Añadir al carrito</button>
+                    <a href="#" class="fas fa-share"></a>
+                </div>
+            </div>
+            <div class="content">
+                <h3>TOSHIBA DYNABOOK SATELLITE PRO C40-J - I3-1115G4 - 8 GB
+</h3>
+                <div class="price">₡25.585 <span>₡30.100</span></div>
+            </div>
+        </div>
+        
+        
+    </div>
+    
+</section>
+
+
+<script>
+    function addToCart(producto, precio) {
+        // Cargar el contenido de carrito.html
+        fetch('carrito.html')
+            .then(response => response.text())
+            .then(data => {
+                // Crear un objeto DOM para el contenido de carrito.html
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(data, 'text/html');
+                
+                // Obtener la tabla del carrito en carrito.html
+                var cartTable = doc.getElementById("cart-table").getElementsByTagName('tbody')[0];
+                
+                // Crear una nueva fila para el producto
+                var newRow = cartTable.insertRow();
+                
+                // Crear las celdas para el nombre, precio y botón de eliminar del producto
+                var productoCell = newRow.insertCell(0);
+                var precioCell = newRow.insertCell(1);
+                var eliminarCell = newRow.insertCell(2);
+                
+                // Agregar la información del producto y el botón de eliminar a las celdas
+                productoCell.innerHTML = producto;
+                precioCell.innerHTML = precio;
+                eliminarCell.innerHTML = '<button onclick="eliminarProducto(this)">Eliminar</button>';
+                
+                // Actualizar el total del carrito
+                var totalCell = doc.getElementsByClassName("cart-total")[0];
+                var total = parseFloat(totalCell.innerHTML.split(": ")[1]);
+                total += parseFloat(precio);
+                totalCell.innerHTML = "Total: " + total.toFixed(2);
+                
+                // Mostrar el contenido actualizado de carrito.html
+                document.body.innerHTML = doc.body.innerHTML;
+            });
+    }
+    
+    function eliminarProducto(row) {
+        // Obtener la fila que contiene el botón de eliminar
+        var productRow = row.parentNode.parentNode;
+        
+        // Obtener el valor del producto eliminado
+        var precio = productRow.getElementsByTagName('td')[1].innerHTML;
+        
+        // Eliminar la fila del producto
+        productRow.parentNode.removeChild(productRow);
+        
+        // Actualizar el total del carrito
+        var totalCell = document.getElementsByClassName("cart-total")[0];
+        var total = parseFloat(totalCell.innerHTML.split(": ")[1]);
+        total -= parseFloat(precio);
+        totalCell.innerHTML = "Total: " + total.toFixed(2);
+    }
+</script>
+
+
+
+
+
+<!-- Contacto -->
+
+<section class="contacto" id="contacto">
+    
+    <h1 class="heading">Contáctanos</h1>
+    
+    <div class="row">
+        
+        <form action="">
+            <input type="text" placeholder="Nombre" class="box">
+            <input type="email" placeholder="Correo" class="box">
+            <input type="number" placeholder="Número" class="box">
+            <textarea name="" class="box" placeholder="Mensaje" id="" cols="30" rows="10"></textarea>
+            <input type="submit" value="send message" class="btn">
+        </form>
+    </div>
+    
+</section>
+
+<!-- Footer -->
+
+<section class="footer">
+    
+    <div class="box-container">
+        
+        <div class="box">
+            <h3>Quick links</h3>
+            <a href="#">Inicio</a>
+            <a href="#">Catalogo</a>
+            <a href="#">Contacto</a>
+        </div>
+        
+        <div class="box">
+            <h3>Extra links</h3>
+            <a href="#">Mi cuenta</a>
+            <a href="#">Mi orden</a>
+            <a href="#">Mis favoritos</a>
+        </div>
+        
+        <div class="box">
+            <h3>Ubicaciones</h3>
+            <a href="#">San José</a>
+            <a href="#">Alajuela</a>
+            <a href="#">Heredia</a>
+            <a href="#">Cartago</a>
+        </div>
+        
+        <div class="box">
+            <h3>Contacto</h3>
+            <a href="#">+506 8888 9999</a>
+            <a href="#">example@gmail.com</a>
+            <a href="#">San José, Costa Rica</a>
+            <img src="Imagenes/metodo pago.jpg" alt="" width="80%" height="35%"/>
+        </div>
+        
+    </div>
+    
+    <div class="credit"> created by <span> V </span> | All rights reserved</div>
+</section>
+
+</html>
